@@ -1,2 +1,4 @@
+*.fits
+*.psf
 Jobs/
 Output/
