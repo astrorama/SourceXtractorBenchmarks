@@ -35,6 +35,8 @@ ${CMAKE_PROJECT_PATH}/SourceXtractorTools/build.${BINARY_TAG}/run RunProfiled \
   --use-version "{{benchmark.branch}}" \
   -- \
   --conf "{{benchmark.configuration}}" \
-  --thread-count ${NCORES}
+  --output-catalog-filename "{{benchmark.catalog}}" \
+  --thread-count ${NCORES} \
+  --progress-bar-disable
 
 popd

@@ -48,9 +48,12 @@ def generateJob(args):
     else:
         logger.info('Using default version lookup')
 
+    bench_name = os.path.split(args.benchmark)[1]
+
     run_id = generateRunId(args)
-    bench_dir = os.path.join(SelfDir, 'Benchmarks', args.benchmark)
-    job_dir = os.path.join(JobDir, args.benchmark)
+    bench_dir = os.path.join(SelfDir, args.benchmark)
+    job_dir = os.path.join(args.job_dir, bench_name)
+    out_dir = os.path.join(args.output_dir, bench_name) 
 
     template_params = {
         'queue': args.queue,
@@ -59,18 +62,19 @@ def generateJob(args):
         'run_id': run_id,
         'cmake_project_path': args.project_path,
         'binary_tag': args.binary_tag,
-        'output_dir': os.path.join(args.output_dir, args.benchmark),
+        'output_dir': out_dir,
         'benchmark': {
             'path': bench_dir,
             'configuration': next(iter(iglob(os.path.join(bench_dir, '*.conf')))),
             'branch': args.branch,
+            'catalog': os.path.join(out_dir, f'catalog_{run_id}.fits')
         },
     }
 
     with open(args.template, 'r') as fd:
         rendered = chevron.render(fd, template_params)
 
-    os.makedirs(args.output_dir, exist_ok=True)
+    os.makedirs(out_dir, exist_ok=True)
     os.makedirs(job_dir, exist_ok=True)
 
     output = os.path.join(job_dir, f'slurm_{run_id}.sh')
