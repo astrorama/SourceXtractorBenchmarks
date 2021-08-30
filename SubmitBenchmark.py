@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 #
 # Copyright (C) 2012-2020 Euclid Science Ground Segment
 #
@@ -23,7 +24,7 @@ from glob import iglob
 
 import chevron
 
-SelfDir = os.path.split(__file__)[0]
+SelfDir = os.path.realpath(os.path.split(__file__)[0])
 TemplateDir = os.path.join(SelfDir, 'Templates')
 JobDir = os.path.join(SelfDir, 'Jobs')
 OutputDir = os.path.join(SelfDir, 'Output')
