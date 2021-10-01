@@ -11,7 +11,7 @@
 RUN_ID="{{run_id}}"
 
 # Project location
-CMAKE_PROJECT_PATH="{{cmake_project_path}}"
+export CMAKE_PROJECT_PATH="{{cmake_project_path}}"
 BINARY_TAG="{{binary_tag}}"
 OUTPUT_DIR="{{output_dir}}"
 
